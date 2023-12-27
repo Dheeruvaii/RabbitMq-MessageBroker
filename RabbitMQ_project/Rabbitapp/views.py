@@ -31,14 +31,14 @@ class QuoteViewset(viewsets.ViewSet):
         serializer=QuoteSerializer(instance=product,data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        publish('quote_created',serializer.data)
+        publish('quote_updated',serializer.data)
 
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     def destroy(self,request,pk=None):
         product=product.objects.get(pk=pk)
         product.delete()
-        publish('quote_created',pk)
+        publish('quote_Deleted',pk)
         return Response('Quote Deleted')
     
 class UserApiView(APIView):
