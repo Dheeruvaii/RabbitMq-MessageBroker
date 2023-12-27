@@ -38,8 +38,9 @@ class QuoteViewset(viewsets.ViewSet):
     
 class UserApiView(APIView):
     def get(self,_):
-        user=user.objects.all()
+        user=User.objects.all()
         return Response(UserSerializer(user).data)
+    
 class UserDetailView(APIView):
         def get_user(self,pk):
             try:
