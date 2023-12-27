@@ -5,6 +5,7 @@ from .models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .producer import publish
 
 # Create your views here.
 class QuoteViewset(viewsets.ViewSet):
@@ -17,6 +18,7 @@ class QuoteViewset(viewsets.ViewSet):
         serializer=QuoteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            publish('quote_created',serializer.data)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         
     def retrive(self,request,pk=None):
@@ -29,17 +31,20 @@ class QuoteViewset(viewsets.ViewSet):
         serializer=QuoteSerializer(instance=product,data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        publish('quote_created',serializer.data)
+
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     def destroy(self,request,pk=None):
         product=product.objects.get(pk=pk)
         product.delete()
+        publish('quote_created',pk)
         return Response('Quote Deleted')
     
 class UserApiView(APIView):
     def get(self,_):
         user=User.objects.all()
-        return Response(UserSerializer(user).data)
+        return Response(UserSerializer(user,many=True).data)
     
 class UserDetailView(APIView):
         def get_user(self,pk):
