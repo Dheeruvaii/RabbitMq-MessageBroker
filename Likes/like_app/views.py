@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets,mixins
 from .serializer import *
+from .models import *
 # Create your views here.
 class QuoteViewset(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
     serializer_class=QuoteSerializer
@@ -9,4 +10,3 @@ class QuoteViewset(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateMo
 class QuoteUserViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
     serializer_class=QuoteUserSerializer
     queryset=QuoteUser.objects.all()
-    

@@ -8,4 +8,4 @@ channel=connections.channel()
 
 def publish(method,body):
     properties=pika.BasicProperties(method)
-    channel.basic_publish(exchange='',routing_key='Likes',body=json.dumps(body),properties=properties)
+    channel.basic_publish(exchange='',routing_key='likes',body=json.dumps(body),properties=properties)

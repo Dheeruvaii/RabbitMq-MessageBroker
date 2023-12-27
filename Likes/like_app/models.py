@@ -13,4 +13,4 @@ class QuoteUser(models.Model):
     quote_id = models.IntegerField(unique=True, blank=True)
 
     def __str__(self):
-        return f"User id {str(self.user_id)} product{str(self.quote_id)}"
+        return f"User id {str(self.user_id)} Product id {str(self.quote_id)}"
